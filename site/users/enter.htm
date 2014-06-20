@@ -1,0 +1,19 @@
+<HEAD><LINK href='/themes/green/main.css' rel=stylesheet type=text/css>
+<table style='width:100%;height:100%;'>
+<tr><td style='vertical-align:middle;' align='center'>
+<form action='login.php' method='post' name='login'>
+Login: <input type='text' name='nick'> &nbsp; 
+Password: <input type='password' name='pswd' onclick="login(event);"> &nbsp;
+Remember: <input type='checkbox' name='rememberme' value='1'>
+<input type='submit' value='enter'>
+</form>
+</td></tr>
+</table>
+<script>
+function login(e) {
+    if (e.keyCode == 13) {
+        var tb = document.getElementById("login");
+        login.submit();
+    }
+}
+</script>

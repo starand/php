@@ -1,0 +1,419 @@
+body
+{
+	color:#C8C8C8;
+	background-color:#000000;
+	background-attachment:fixed;
+	font-family: "Trebuchet MS", Terminal;
+	font-size:12px;
+	padding: 0px;
+	MARGIN: 0px;
+}
+
+img { border:none; }
+
+temp
+{
+background-image:url(images/background.jpg);
+}
+
+input
+{
+	color:gray;
+	background-color:#000000;
+	font-weight:bold;
+	border-color:gray;
+	border-style:solid;
+}
+
+.warning 
+{ 
+font-weight:bold;
+color:red;
+text-align:center;
+}
+
+h1 { color:yellow; }
+h3 { color:yellow; }
+
+table { font-family: "Trebuchet MS", Terminal; font-size:12px; }
+table.login { color:green; }
+table.menu { width:1024px;  padding:0px; margin: 0px; border:0px;}
+table.tablebg {background-color:#44474F; font-size:12px;}
+table.h { border: solid; }
+
+tr.menu { height:30px;	font-weight:bold; color:#00FF00;	font-size:12px; }
+tr.lm 	{ height:20px; }
+tr.tblttl { background:#005500;	font-weight:bold; }
+
+td.main { text-align:justify; padding:20px; }
+td.tbl { background:#002200; }
+td.tblttl { font-weight:bold; text-align:center; color:#00FF00; }
+td.serv_ttl { color:white; font-weight:bold;text-align:left; background:#000022;}
+td.vline {background-image:url('images/vline.gif'); width:1px; }
+td.hline { background-image:url('images/hline.gif'); }
+td.f { padding-left: 5px; padding-right:5px; }
+td.cmdpanel { font-size:10px; font-weight:bold; text-align:right; vertical-align:middle; }
+td.menu {font-size:11px;}
+td.msglist { background:#282828; padding:5px; vertical-align:middle; }
+td.news { background:#282828; padding:5px; vertical-align:top; font-size:10px; }
+td.lastmsgs { background:#282828; padding:5px; vertical-align:top; font-size:10px; }
+th.f { background: #151545; color:white; }
+td.deleted { text-align:center; font: 12px; font-weight: bold; color: magenta; font-family:"Trebuchet MS"; padding:5px;}
+
+
+.title {	font-weight:bold; font-size:18px; color:white; }
+.ln { background:#007700; }
+
+
+
+
+th {
+	color: #8CB790;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: #363940;
+	background-image: url('images/cellpic1.gif');
+	white-space: nowrap;
+	padding: 7px 5px;
+}
+.spacer {
+	background-color: #44474f;
+	height:5px;
+}
+td { vertical-align:top; }
+
+td.hdr {
+	vertical-align:middle;
+	padding: 5px;
+	text-align:center;
+	background-color: #363940;
+	color:yellow;
+}
+td.msg
+{
+	background-color: #363940;
+	padding: 4px;
+	color: #c1c1c7;	
+}
+.quote {margin:0px; color:magenta; font-family:"Trebuchet MS", Terminal; }
+.gc { color:#00FF00; }
+.rc { color:#FF0000; }
+.oc { color:orange; }
+.yc { color:yellow; }
+
+.console {
+	color:#00FF00;	
+	font-family:Lucida console;	
+	background-color:#050515;
+
+	padding:3px;
+	margin:2px;
+	border: solid 1px;
+	border-color:#1b1d86;
+	width:1000px;
+	word-wrap:break-word;
+}
+
+.b { font-weight:bold;}
+
+.btnbbcode {
+	color: #b9b9bd;
+	font-size: 12px;
+	font-family: "Lucida Grande", Verdana, Helvetica, sans-serif;
+	background-color: #333333;
+	border: 1px solid #363940;
+	margin:1px;
+	font-weight:bold;
+	vertical-align:middle;
+}
+.helpline {
+	background-color: #44474f;
+	border-style: none;
+}
+pre.code
+{
+	color:white;
+	background: #1b1d26;
+	font-family: "Courier New";
+	margin:0px;
+	border: solid 1px grey;
+	padding:5px;
+	background-image: url('images/1.bmp');
+	width:1030px;
+	word-wrap:break-word;
+}
+
+h2
+{
+	color: #33CC33;
+	text-align:center;
+}
+
+tr.precode
+{
+	background: #3E4049;
+	font-family:Consolas;
+	color:#00FF00;
+	cursor:pointer;
+}
+
+tr.mainfrm
+{
+	background:#44474f;
+	color:white;
+	font-weight:bold; 
+}
+
+.link { color:magenta; font-weight:bold; text-decoration:underline; cursor:pointer;}
+
+span.frmcomment { font-size:10px; }
+span.ndate { font-size:10px; color:grey;}
+a.path { color:magenta; font-size:12px;  font-family:"Lucida Console", Terminal; font-weight:bold; text-decoration:underline;}
+
+.light { color:yellow; }
+.date { color:grey; }
+.name { color:magenta; font-weight:bold; }
+.num { width:20px; }
+.chat { border: solid 1px #1b1d86; text-align:justify; }
+.chatwnd { text-align:left;position:absolute; background-image: url('images/bg.gif'); padding:10px; }
+
+.jc {text-align:center;}
+.jl {text-align:left;}
+.jr {text-align:right;}
+.jj{text-align:justify;}
+
+
+.underline { text-decoration: underline; }
+.none { text-decoration: none; }
+tr.frmttl
+{
+	background-image: url('images/titlebg.jpg');
+	color:white;
+}
+td.frmttl { vertical-align:middle; color:white; font-weight:bold; padding:3px; }
+td.frmttlc { vertical-align:middle; color:white; font-weight:bold; padding:3px; text-align:center; }
+td.frmcont { background:#313131; padding:3px; }
+td.frmcontc { background:#313131; padding:3px; text-align:center; }
+
+td.frmcount
+{
+	background:#282828;
+	width:90px;
+	vertical-align:middle;
+	text-align:center;
+	font-size:9px;
+}
+td.frmlastmsg
+{
+	width:260px;
+	background:#313131;
+	vertical-align:middle;
+	font-size:9px;
+	padding:3px;
+}
+
+div.frmframe
+{
+	border:1px solid;
+	border-color:#313131;
+	padding:1px;
+	background:black;
+}
+
+div.geoinfo
+{
+	border:1px solid;
+	border-color:#282828;
+	padding:1px;
+	background:black;
+	width:700px;
+	background:#313131;'
+}
+
+div.citation
+{
+	border: 1px solid #000000;
+	color:#FFFFFF;
+	background: #202020;
+	padding:10px;
+	margin:5px;
+	font-family: "Trebuchet MS";
+}
+
+span.panel { background:#2D2D2D; }
+
+a:link    {  color:#c8c8c8; cursor: pointer; }
+a:visited { color:#c8c8c8; cursor: pointer;  }
+a:hover   {  color:#c8c8c8; cursor: pointer; }
+
+a.ttl:link { color:#c8c8c8; cursor: pointer; text-decoration:none; }
+a.ttl:visited { color:#c8c8c8; cursor: pointer; text-decoration:none; }
+a.ttl:hover { color:#c8c8c8; cursor: pointer; text-decoration:none; }
+
+table.frmlist
+{
+	text-align:left;
+	width:100%;
+	font-family:Verdana;
+	margin:0px;
+}
+
+
+td.msgautor
+{
+	background:#333333;
+	vertical-align:middle;
+	width:140px;
+	padding:3px;
+	text-align:center;
+}
+td.msgcount
+{
+	width:90px;
+	vertical-align:middle;
+	background: #282828;
+	text-align:center;
+}
+tr.msgpanel
+{
+	background-image: url('images/titlebg.jpg');
+	color:white;
+	font-weight:bold;
+}
+td.msgpanel
+{
+	padding:7px;
+	vertical-align:middle;
+}
+td.msgpanelsm
+{
+	vertical-align:middle;
+	font-size:10px;
+	text-align:right;
+	padding:7px;	
+}
+td.msgttl
+{
+	color:white;
+	padding:5px;
+	vertical-align:middle;
+}
+hr, .hrcolor
+{
+	height: 1px;
+	border: 0;
+	color: #666666;
+	background-color: #666666;
+}
+div.msgcont
+{
+	text-align:justify;
+	width:100%;
+	line-height:150%;
+	font-family: "Trebuchet MS";
+}
+td.padding
+{
+	padding:7px;
+	font-family: "Trebuchet MS";
+}
+td.smpad { padding:3px; font-family: "Trebuchet MS"; }
+td.paddingc
+{
+	padding:7px;
+	text-align:center;
+}
+td.profavatar
+{
+	width:140px;
+	text-align:center; 
+	vertical-align:middle;
+	background:#282828;
+}
+td.profttl
+{
+	vertical-align:middle;
+	color:white;
+	font-weight:bold;
+	padding:5px;
+}
+td.proftag
+{
+	font-weight:bold;
+	color:white;
+	width:200px;
+	background:#282828;
+	padding:5px;
+}
+td.profvalue
+{
+	color:white;
+	background:#282828;
+	padding:5px;
+}
+td.srchdate
+{
+	padding:5px;
+	width:160px;
+	text-align:center;
+	vertical-align:middle;
+	background:#282828;
+}
+div.bsmall
+{
+	font-size:10px;
+	font-weight:bold;
+	width:100%;
+	padding:5px;
+}
+
+td.srchkey, .profkey
+{
+	vertical-align:middle;
+	background: #282828;
+	padding:3px;
+	font-weight:bold;
+}
+
+td.srchkey-b
+{
+	vertical-align:middle;
+	background: #282828;
+	padding:3px;
+}
+
+td.profsmall
+{
+	font-size:10px;
+	text-align:right;
+	background: #282828;
+}
+
+span.atach_files
+{
+	font-size:9px;
+	font-weight:bold;
+	color:white;
+}
+
+span.filelist
+{
+	font-size:9px;
+	color:#00FF00;
+}
+
+.attach { color:orange; font-size:11px; cursor:pointer; text-decoration:underline; }
+.attached { color:#00FF00; font-size:11px; cursor:pointer; text-decoration:underline; }
+.attached_ttl { color:white; font-size:14px; }
+
+a.bl_main { color:#3388CC; font-weight:bold; font-size:20px; text-decoration:underline; }
+a.bl_main_grey { color:grey; font-weight:bold; font-size:20px; text-decoration:underline; }
+a.bl_menu { color:#00bbff; font-weight:bold; }
+
+a.red { color:red; }
+a.nodecor { text-decoration:none; }
+
+textarea { background:black;color:white; width: 100%; }
+
+img.like{ width:18px;vertical-align:middle; }
+span.like{ border-style: inset; border: 1px solid #336699; padding: 0px 5px 0px 5px; }
