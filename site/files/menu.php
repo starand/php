@@ -13,7 +13,6 @@
 <a class='ttl' href='../files/main.php?script=profile' title=' '> Профіль </a> | 
 <a class='ttl' href='../files/main.php?script=hash' title=' '> Хеші </a> | 
 <a class='ttl' href='../files/main.php?script=peoples' title=' '> Люди </a> | 
-<a class='ttl' href='../files/main.php?script=geoip' title=' '> GeoIp </a> | 
 <a class='ttl' href='../files/main.php?script=fileslist' title=' '> Files </a> | 
 <a class='ttl' href='../files/main.php?script=books' title=' '> Книги </a> | 
 <a class='ttl' href='../files/main.php?script=reminders' title=' '> Reminders </a> | 
