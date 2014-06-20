@@ -1,5 +1,5 @@
 <?
-	define( ROOT, "e:\\lab\\.site\\www\\plugins\\jarvis\\" );
+	define( ROOT, "e:\\sources\\php\\site\\plugins\\jarvis\\" );
 
 	$db_user = "stream";
 	$db_pswd = "limit 5";

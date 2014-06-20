@@ -1,6 +1,6 @@
 <?
-	define( 'BASE_PATH', 'e:/lab/.site/www/' );
-	define( 'PLUGIN_PATH', 'e:/lab/.site/www/plugins/radio/' );
+	define( 'BASE_PATH', 'e:/sources/php/site/' );
+	define( 'PLUGIN_PATH', 'e:/sources/php/site/plugins/radio/' );
 	include_once BASE_PATH."files/common.php";
 
 function GetCategories()

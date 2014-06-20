@@ -3,7 +3,7 @@
 	header('Content-Type: text/html; charset=windows-1251');
 
 	define( 'SMART_HOUSE', '1.0' );
-	define( 'ROOT_PATH', "e:/lab/.site/www/plugins/smh/" );
+	define( 'ROOT_PATH', "e:/sources/php/site/plugins/smh/" );
 
 	include_once ROOT_PATH."/config/config.php";
 	

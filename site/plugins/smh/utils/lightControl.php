@@ -4,6 +4,8 @@
 	include_once UTILS."socket.php";
 	include_once UTILS."enums.php";
 	
+	$password = "test_password";
+	
 function IsRoomLight( $room )
 {
 	global $g_nStatus;
@@ -35,6 +37,12 @@ function ExecuteCommand( $command )
 		$command .= ":site:".$_SERVER['REMOTE_ADDR'];
 		
 		if( !$clientSock->Connect(7300) ) break;
+		
+		# perform authorization
+		global $password;
+		if( !$clientSock->Send($password) ) break;
+		if( !$clientSock->Recv($status, $bytes) ) break;
+		
 		if( !$clientSock->Send($command) ) break;
 		if( !$clientSock->Recv($data, $bytes) ) break;
 	}
