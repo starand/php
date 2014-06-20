@@ -1,6 +1,8 @@
 <?
 	if(!defined("__DB__")) { 
 	define("__DB__",1); //for multiply use
+	include_once "config.php";
+	
 	// MySQL host
 	$host = "localhost";	
 
@@ -8,7 +10,7 @@
 	$mysql_user = "stream"; 	
 	
 	// MySQL password
-	$mysql_pswd = "limit 5";
+	$mysql_pswd = "hacker";
 
 	// database name
 	$db = "knowbase";
@@ -17,7 +19,7 @@
 	$path = "";
 
 // connecting
-	@mysql_pconnect($host,"stream","limit 5") or die("Can not connect to database!!"); 
+	@mysql_pconnect($host,"stream",mysql_pswd) or die("Can not connect to database!!"); 
 	mysql_select_db($db) or die("Can not select database!!");
 
 

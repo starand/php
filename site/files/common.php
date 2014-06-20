@@ -3,8 +3,6 @@
 	header('Content-Type: text/html; charset=windows-1251');
 	define ("COMMON", 1);
 	
-	define( "ROOT_PATH", "E:\\lab\\.site\\www\\" );
-	
 	include_once "db.php"; // connecting to db
 
 	$REMOTE_ADDR = getenv('REMOTE_ADDR');
