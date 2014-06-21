@@ -54,7 +54,7 @@
         echo "<a href='../files/main.php?script=showmsg&mid=".($pm ? $pm['mId']."#id".$msg['mId'] : $msg['mId'])."'>";
         echo MakeTDLink("{$msg['mTheme']}");
         echo "</a> ";
-		if( $bShort ) echo "[ ".alink($msg)." ]";
+		if( $bShort ) echo "<span style='font-size:10px;'>[ ".alink($msg)." ]</span>";
 		echo "</td>";
         
 	if( !$bShort ) {

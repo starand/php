@@ -26,7 +26,8 @@
 		}
 		
 	echo "</td><td>";
-		include_once  "reminders.php";
+		if ($_CONFIG['showReminders'])
+			include_once  "reminders.php";
 	echo "</td></tr></table>";
 
 	ShowPrompt();
@@ -41,9 +42,12 @@
             echo "<BR>";
         }
 
-        define( "SHORT_LIST", 1 );
-        define( "LIMIT_LIST", 5 );
-        include_once "../forums/lastmsgs.php";
+		if ($_CONFIG['showLastMsgs'])
+		{
+			define( "SHORT_LIST", 1 );
+			define( "LIMIT_LIST", 5 );
+			include_once "../forums/lastmsgs.php";
+		}
     
         if ($_CONFIG['showNews'])
         {

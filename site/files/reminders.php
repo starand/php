@@ -5,7 +5,7 @@
 	
 	if(!($user=CheckUser())) EchoErrorMsg("","../users/enter.php");
 	
-	$msgs = GetUserReminders( $user['uId'], 5 );
+	$msgs = GetUserReminders($user['uId'], 4);
 	if( $msgs )
 	{
 		echo "<span style=';text-align:right;color:magenta;float:right;'>";

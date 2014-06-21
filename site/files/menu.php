@@ -28,7 +28,8 @@
 </span>
 <?
 	echo "<span id='fastlinks' style='float:right;'>";
-	include_once "../forums/fastlinks.php";
+	if ($_CONFIG['showQLinks'])
+		include_once "../forums/fastlinks.php";
 	echo "</span>";
 ?>
 </td></tr></table>
