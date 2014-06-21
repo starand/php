@@ -1,6 +1,7 @@
 <?
 	if(!defined("__DB__")) { 
-	define("__DB__",1); //for multiply use
+	define("__DB__", 1);
+    
 	include_once "config.php";
 	
 	// MySQL host
@@ -12,15 +13,9 @@
 	// MySQL password
 	$mysql_pswd = "hacker";
 
-	// database name
-	$db = "knowbase";
-	
-	//path to notes
-	$path = "";
-
-// connecting
-	@mysql_pconnect($host,"stream",mysql_pswd) or die("Can not connect to database!!"); 
-	mysql_select_db($db) or die("Can not select database!!");
+    # connecting
+	@mysql_pconnect($host,mysql_user,mysql_pswd) or die("Can not connect to database!!"); 
+	mysql_select_db(db_name) or die("Can not select database!!");
 
 
 ## send query to db	
