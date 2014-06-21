@@ -2,8 +2,8 @@
 	include_once "common.php";
 	include_once "../users/users.php"; 
 
-	$user = CheckUser();
-	if(!$user) die();	
+	$user = CheckUser(); if(!$user) die();
+    $_CONFIG = GetConfig();
 ?>
 
 <table class='frmlist'><tr><td class='menu'><span style='float:left;'>
@@ -14,8 +14,11 @@
 <a class='ttl' href='../files/main.php?script=hash' title=' '> Хеші </a> | 
 <a class='ttl' href='../files/main.php?script=peoples' title=' '> Люди </a> | 
 <a class='ttl' href='../files/main.php?script=fileslist' title=' '> Files </a> | 
-<a class='ttl' href='../files/main.php?script=books' title=' '> Книги </a> | 
-<a class='ttl' href='../files/main.php?script=reminders' title=' '> Reminders </a> | 
+<? 
+    if ($_CONFIG['showBooks'] != 0) echo "<a class='ttl' href='../files/main.php?script=books' title=' '> Книги </a> | ";
+    if ($_CONFIG['showReminders']) echo "<a class='ttl' href='../files/main.php?script=reminders' title=' '> Reminders </a> | ";
+?>
+
 <? if($user['uNick'] === "StarAnd") echo "<a class='ttl' href='../files/main.php?script=radio' title=''> Radio </a> | ";?>
 <a class='ttl' href='../users/logoff.php' title=''> Вихід </a> &nbsp; &nbsp;
 <a class='ttl' href='../files/main.php?script=lastmsgs' title=' '> Останні повідомлення </a> | 

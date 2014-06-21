@@ -206,8 +206,55 @@ function ShowPrompt( $right = "" )
 ##
 function AddJarvisMessage( $msg, $title="Safety Lab", $level = 1 )
 {
-	$sql = "INSERT INTO jarvis.notifications VALUES( NULL, '$msg', '$title', $level, now() )";
-	return uquery( $sql );
+    $config = GetConfig();
+    if ($config['jarvis'])
+    {
+        $sql = "INSERT INTO jarvis.notifications VALUES( NULL, '$msg', '$title', $level, now() )";
+        return uquery( $sql );
+    }
+}
+
+function LoadConfigOptions($uid = 0)
+{
+    $sql = "SELECT * FROM config WHERE cfgUid=$uid";
+	$res = uquery($sql);
+	if (!mysql_num_rows($res)) return array();
+	for($result=array();$row=mysql_fetch_array($res);$result[$row['cfgKey']] = $row['cfgValue']);
+    $_SESSION['config'] = $result;
+	return $result;
+}
+
+function UpdateConfig($key, $value)
+{
+    $sql = "UPDATE config SET cfgValue='$value' WHERE cfgKey='$key'";
+    return uquery($sql);
+}
+
+function AddConfig($key, $value)
+{
+    $sql = "INSERT INTO config VALUES(NULL, '$key', '$value')";
+    return uquery($sql);
+}
+
+function LoadConfig()
+{
+    global $user;
+    $config = LoadConfigOptions();
+    $userConfig = LoadConfigOptions($user['uId']);
+
+    foreach ($userConfig as $k => $v)
+    {
+        $config[$k] = $v;
+    }
+
+    return $config;
+}
+
+function GetConfig()
+{
+    // if (isset($_SESSION['config'])) return $_SESSION['config'];
+    // else
+        return LoadConfig();
 }
 
 ?>

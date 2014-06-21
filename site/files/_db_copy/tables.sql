@@ -214,3 +214,10 @@ CREATE TABLE likes (
   likeUid int(10) unsigned NOT NULL,
   likeType enum('l','d') NOT NULL
 );
+
+CREATE TABLE config (
+  cfgId tinyint unsigned auto_increment primary key,
+  cfgKey varchar(50) not null,
+  cfgValue varchar(255) not null,
+  cfgUid int unsigned not null default 0
+);
