@@ -2,6 +2,7 @@
 	include_once "../forums/forums.php";
 
 	if(!($user=CheckUser())) EchoErrorMsg("","../users/enter.php");
+    $_CONFIG = GetConfig();
 
 	echo "<table style='width:100%;'><tr><td>";
 		$ActUsers = GetActiveUsers();
@@ -34,14 +35,21 @@
 		include_once  "frmlist.php"; // FORUMS
 
 	echo "</td><td> &nbsp; </td><td style='width:200px;'>";
-		include "rndbook.php"; // books
-		echo "<BR>";
-		define( "SHORT_LIST", 1 );
-		define( "LIMIT_LIST", 5 );
-		include_once "../forums/lastmsgs.php";
-		
-	echo "</td><td> &nbsp; </td><td style='width:200px;'>";
-		include_once "news.php"; // NEWS
+        if ($_CONFIG['showBooks'])
+        {
+            include "rndbook.php"; // books
+            echo "<BR>";
+        }
+
+        define( "SHORT_LIST", 1 );
+        define( "LIMIT_LIST", 5 );
+        include_once "../forums/lastmsgs.php";
+    
+        if ($_CONFIG['showNews'])
+        {
+    echo "</td><td> &nbsp; </td><td style='width:200px;'>";        
+            include_once "news.php"; // NEWS
+        }
 		
 	echo "</td></tr></table>";
 

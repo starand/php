@@ -3,6 +3,7 @@
 	include_once "../users/users.php"; 
 
 	$user = CheckUser(); if(!$user) die();
+    $_CONFIG = GetConfig();
 ?><a href='../files/main.php?script=main'><img src='../img/logo.png'></a>
 <div class='frmframe'>
 <table class='frmlist' cellspacing='1'>
@@ -22,8 +23,10 @@
 	if($user['uNick'] === "StarAnd")
 	{
 		echo "<tr><td class='msglist' style='text-align:right;color:red;'> | ";
-		echo "<a class='ttl' href='../plugins/smh/' title='Smart House' target='_blank'> House </a> | ";
-		echo "<a class='ttl' href='../plugins/jarvis/?module=notify&list&debug' title='Jarvis' target='_blank'> Jarvis </a> | ";
+        if ($_CONFIG['showSmartHouse'])
+            echo "<a class='ttl' href='http://safetylab.zapto.org/plugins/smh/' title='Smart House' target='_blank'> House </a> | ";
+        if ($_CONFIG['showJarvis'])
+            echo "<a class='ttl' href='http://safetylab.zapto.org/plugins/jarvis/?module=notify&list&debug' title='Jarvis' target='_blank'> Jarvis </a> | ";
 		echo "</td></tr>";
 	}
 ?>
