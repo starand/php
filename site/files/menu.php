@@ -7,23 +7,22 @@
 ?>
 
 <table class='frmlist'><tr><td class='menu'><span style='float:left;'>
-<? if($user['uNick'] === "StarAnd") echo "<a class='ttl' href='../files/main.php?script=log' title=''> Лог </a> | ";?>
 <a class='ttl' href='../files/main.php?script=main' title=''> Головна </a> | 
 <a class='ttl' href='../files/main.php?script=search' title=''> Пошук </a> | 
-<a class='ttl' href='../files/main.php?script=profile' title=' '> Профіль </a> | 
+<a class='ttl' href='../files/main.php?script=news' title=' '> Новини </a> | 
+<a class='ttl' href='../files/main.php?script=lastmsgs' title=' '> Останні повідомлення </a> | 
+<a class='ttl' href='../files/main.php?script=userlist' title=' '> Користувачі </a>
+&nbsp;  &nbsp; 
 <a class='ttl' href='../files/main.php?script=hash' title=' '> Хеші </a> | 
 <a class='ttl' href='../files/main.php?script=peoples' title=' '> Люди </a> | 
 <a class='ttl' href='../files/main.php?script=fileslist' title=' '> Files </a> | 
 <? 
     if ($_CONFIG['showBooks'] != 0) echo "<a class='ttl' href='../files/main.php?script=books' title=' '> Книги </a> | ";
     if ($_CONFIG['showReminders']) echo "<a class='ttl' href='../files/main.php?script=reminders' title=' '> Reminders </a> | ";
-?>
-
-<? if($user['uNick'] === "StarAnd") echo "<a class='ttl' href='../files/main.php?script=radio' title=''> Radio </a> | ";?>
-<a class='ttl' href='../users/logoff.php' title=''> Вихід </a> &nbsp; &nbsp;
-<a class='ttl' href='../files/main.php?script=lastmsgs' title=' '> Останні повідомлення </a> | 
-<a class='ttl' href='../files/main.php?script=news' title=' '> Новини </a> | 
-<a class='ttl' href='../files/main.php?script=userlist' title=' '> Користувачі </a> 
+	if($user['uNick'] === "StarAnd") echo "<a class='ttl' href='../files/main.php?script=radio' title=''> Radio </a> ";?>
+ &nbsp;  &nbsp;
+<a class='ttl' href='../files/main.php?script=profile' title=' '> Профіль </a> | 
+<a class='ttl' href='../users/logoff.php' title=''> Вихід </a>
 
 </span>
 <?
