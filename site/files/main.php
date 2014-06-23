@@ -10,6 +10,7 @@
 		{
 			$_SESSION["n_user"] = $usr;
 			AddLogMsg($usr['uId'], $usr['uPswd'], 6);
+			$user = CheckUser();
 			AddJarvisMessage( "{$usr['uNick']} autologin into SafetyLab" );
 		}
 	}
