@@ -19,7 +19,7 @@
 <? 
     if ($_CONFIG['showBooks'] != 0) echo "<a class='ttl' href='../files/main.php?script=books' title=' '> Книги </a> | ";
     if ($_CONFIG['showReminders']) echo "<a class='ttl' href='../files/main.php?script=reminders' title=' '> Reminders </a> | ";
-	if($user['uNick'] === "StarAnd") echo "<a class='ttl' href='../files/main.php?script=radio' title=''> Radio </a> ";?>
+?>
  &nbsp;  &nbsp;
 <a class='ttl' href='../files/main.php?script=profile' title=' '> Профіль </a> | 
 <a class='ttl' href='../users/logoff.php' title=''> Вихід </a>

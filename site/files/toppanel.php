@@ -28,6 +28,8 @@
             echo "<a class='ttl' href='http://safetylab.zapto.org/plugins/smh/' title='Smart House' target='_blank'> House </a> | ";
         if ($_CONFIG['showJarvis'])
             echo "<a class='ttl' href='http://safetylab.zapto.org/plugins/jarvis/?module=notify&list&debug' title='Jarvis' target='_blank'> Jarvis </a> | ";
+		if($_CONFIG['showRadio']) 
+			echo "<a class='ttl' href='../files/main.php?script=radio' title=''> Radio </a> | ";			
 		echo "</td></tr>";
 	}
 ?>
