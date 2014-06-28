@@ -1,24 +1,27 @@
 <?
-	function my_session_start()
-	{
-		if (isset($_COOKIE['PHPSESSID'])) {
-			$sessid = $_COOKIE['PHPSESSID'];
-		} else if (isset($_GET['PHPSESSID'])) {
-			$sessid = $_GET['PHPSESSID'];
-		} else {
-			session_start();
-			return false;
-		}
+function my_session_start()
+{
+      $sn = session_name();
+      if (isset($_COOKIE[$sn])) {
+          $sessid = $_COOKIE[$sn];
+      } else if (isset($_GET[$sn])) {
+          $sessid = $_GET[$sn];
+      } else {
+          return session_start();
+      }
 
-		if (!preg_match('/^[a-z0-9]{32}$/', $sessid)) {
-			return false;
-		}
-		session_start();
+     if (!preg_match('/^[a-zA-Z0-9,\-]{22,40}$/', $sessid)) {
+          return false;
+      }
+      return session_start();
+}
 
-	   return true;
-	}
+if ( !my_session_start() ) {
+    session_id( uniqid() );
+    session_start();
+    session_regenerate_id();
+}
 
-	my_session_start();
 	header('Content-Type: text/html; charset=windows-1251');
 	
 	define ("COMMON", 1);
