@@ -16,7 +16,7 @@
 		const NightLightOn 		= 12;
 		const NightLightOff 	= 13;
 	}
-	
+
 	abstract class EBUTTONBITS
 	{
 		const EBB_KITCHEN 	= 1;
@@ -25,5 +25,15 @@
 		const EBB_CORRIDOR	= 8;
 		const EBB_HALL 		= 16;
 		const EBB_LAMP		= 32;
+	};
+
+	abstract class EROOMS
+	{
+		const KITCHEN 	= 0;
+		const BATHROOM 	= 1;
+		const TOILET	= 2;
+		const CORRIDOR	= 3;
+		const HALL 		= 4;
+		const LAMP		= 5;
 	};
 ?>

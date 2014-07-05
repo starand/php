@@ -31,11 +31,39 @@ function DeclareButtonHandler( $name, $room, $onCmd, $offCmd)
 
 function ExecuteCommand( $command )
 {
+	$onLights = array();
+	$offLights = array();
+	
+	switch($command)
+	{
+		case CMD::KitchenLightOn:	$onLights[] = EROOMS::KITCHEN; break;
+		case CMD::KitchenLightOff:	$offLights[] = EROOMS::KITCHEN; break;
+		case CMD::BathroomLightOn:	$onLights[] = EROOMS::BATHROOM; break;
+		case CMD::BathroomLightOff:	$offLights[] = EROOMS::BATHROOM; break;
+		case CMD::ToiletLightOn:	$onLights[] = EROOMS::TOILET; break;
+		case CMD::ToiletLightOff:	$offLights[] = EROOMS::TOILET; break;
+		case CMD::CorridorLightOn:	$onLights[] = EROOMS::CORRIDOR; break;
+		case CMD::CorridorLightOff:	$offLights[] = EROOMS::CORRIDOR; break;
+		case CMD::HallLightOn:		$onLights[] = EROOMS::HALL; break;
+		case CMD::HallLightOff:		$offLights[] = EROOMS::HALL; break;
+		case CMD::NightLightOn:		$onLights[] = EROOMS::LAMP; break;
+		case CMD::NightLightOff:	$offLights[] = EROOMS::LAMP; break;
+	}
+	
+	$lights = array();
+	if (count($onLights)) { $lights['on'] = $onLights; }
+	if (count($offLights)) { $lights['off'] = $offLights; }
+	
+	$request = array();
+	if (count($lights)) $request['light'] = $lights;
+	$request['client'] = array('ip' => $_SERVER['REMOTE_ADDR'], 'tool' => 'site' );
+	
+	$packet['request'] = $request;
+	$json_data = json_encode($packet);
+
 	do
 	{
 		$clientSock = new CSocket();
-		$command .= ":site:".$_SERVER['REMOTE_ADDR'];
-		
 		if( !$clientSock->Connect(7300) ) break;
 		
 		# perform authorization
@@ -43,12 +71,21 @@ function ExecuteCommand( $command )
 		if( !$clientSock->Send($password) ) break;
 		if( !$clientSock->Recv($status, $bytes) ) break;
 		
-		if( !$clientSock->Send($command) ) break;
-		if( !$clientSock->Recv($data, $bytes) ) break;
+		//echo $json_data;
+		if( !$clientSock->Send($json_data) ) break;
+		if( !$clientSock->Recv($response, $bytes) ) break;
+		//echo $response;
 	}
 	while(false);
 	
-	return (int)$data;
+	$status = 0;
+	$result = json_decode($response);
+	if (isset($result->response->light_status))
+	{
+		$status = $result->response->light_status;
+	}
+
+	return (int)$status;
 }
 
 function ShowButton( $name, $state, $strId)
