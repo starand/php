@@ -4,7 +4,6 @@
 	include_once UTILS."socket.php";
 	include_once UTILS."enums.php";
 	
-	$password = "test_password";
 	
 function IsRoomLight( $room )
 {
@@ -53,30 +52,14 @@ function ExecuteCommand( $command )
 	$lights = array();
 	if (count($onLights)) { $lights['on'] = $onLights; }
 	if (count($offLights)) { $lights['off'] = $offLights; }
+	if (count($lights)) $packet['request']['light'] = $lights;
 	
-	$request = array();
-	if (count($lights)) $request['light'] = $lights;
-	$request['client'] = array('ip' => $_SERVER['REMOTE_ADDR'], 'tool' => 'site' );
+	AddCommonInfo($packet);
 	
-	$packet['request'] = $request;
 	$json_data = json_encode($packet);
 
-	do
-	{
-		$clientSock = new CSocket();
-		if( !$clientSock->Connect(7300) ) break;
-		
-		# perform authorization
-		global $password;
-		if( !$clientSock->Send($password) ) break;
-		if( !$clientSock->Recv($status, $bytes) ) break;
-		
-		//echo $json_data;
-		if( !$clientSock->Send($json_data) ) break;
-		if( !$clientSock->Recv($response, $bytes) ) break;
-		//echo $response;
-	}
-	while(false);
+	$response = '';
+	makeRequest($json_data, $response);
 	
 	$status = 0;
 	$result = json_decode($response);
@@ -90,41 +73,46 @@ function ExecuteCommand( $command )
 
 function ShowButton( $name, $state, $strId)
 {
-	echo "<td style='text-align:center;'>$name</td><td style='width:100px;'>";
-		echo "<img id='$strId' src='".($state ? "img/onBtn.jpg" : "img/offBtn.jpg")."' >";
+	echo "<td style='width:100px;'>";
+		echo "<a id='$strId' href='#' class='".($state ? "buttonOn" : "buttonOff")."'
+				style='width:130px;line-height:65px;vertical-align:middle;'>$name</a>";
 	echo "</td>";
 }
 
 function ShowButtonsDefault( $g_nStatus )
 {
-	echo "<table style='background:#191F2F;color:#BF40FF;font-weight:bold;font-family:verdana;padding:10px;width:350px;'>";
+	echo "<table class='buttonTable'>";
 	echo "<tr>";
 		ShowButton( "Кухня", 	$g_nStatus & EBUTTONBITS::EBB_KITCHEN, 	"kitchenLightButton" );
+		ShowButton( "Лампа", 	$g_nStatus & EBUTTONBITS::EBB_LAMP, 	"nightLightButton" );
+	echo "</tr><tr>";
 		ShowButton( "Ванна", 	$g_nStatus & EBUTTONBITS::EBB_BATHROOM, "bathroomLightButton" );
 		ShowButton( "Туалет", 	$g_nStatus & EBUTTONBITS::EBB_TOILET, 	"toiletLightButton" );
 	echo "</tr><tr>";
 		ShowButton( "Коридор", 	$g_nStatus & EBUTTONBITS::EBB_CORRIDOR, "corridorLightButton" );
 		ShowButton( "Зал", 		$g_nStatus & EBUTTONBITS::EBB_HALL, 	"hallLightButton" );
-		ShowButton( "Лампа", 	$g_nStatus & EBUTTONBITS::EBB_LAMP, 	"nightLightButton" );
 	echo "</tr></table>";
 }
 
+
 function ShowButtonMobile( $name, $state, $command )
 {
-	echo "<td>$name</td><td><a href='index.php?command=$command'><img id='$strId' src='".($state ? "img/onBtn.jpg" : "img/offBtn.jpg")."' ></a></td>\n";
+	echo "<a href='index.php?command=$command' class='".($state ? "buttonOn" : "buttonOff")."' style='width:112px;line-height:53px;vertical-align:middle;'>$name</a> ";
 }
 	
 function ShowButtonsMobile( $g_nStatus )
 {
-	echo "<table style='background:#191F2F;color:#BF40FF;font-weight:bold;font-family:verdana;padding:10px;width:350px;'>";
-	echo "<tr>";
+	echo "<table class='buttonTable' style='width:230px;'>";
+	echo "<tr><td>";
 		ShowButtonMobile( "Кухня", 	$g_nStatus & EBUTTONBITS::EBB_KITCHEN, $g_nStatus & EBUTTONBITS::EBB_KITCHEN ? CMD::KitchenLightOff : CMD::KitchenLightOn );
+		ShowButtonMobile( "Лампа", 	$g_nStatus & EBUTTONBITS::EBB_LAMP, $g_nStatus & EBUTTONBITS::EBB_LAMP ? CMD::NightLightOff : CMD::NightLightOn);
+	echo "</td></tr><tr><td>";	
 		ShowButtonMobile( "Ванна", 	$g_nStatus & EBUTTONBITS::EBB_BATHROOM, $g_nStatus & EBUTTONBITS::EBB_BATHROOM ? CMD::BathroomLightOff : CMD::BathroomLightOn );
 		ShowButtonMobile( "Туалет", 	$g_nStatus & EBUTTONBITS::EBB_TOILET, $g_nStatus & EBUTTONBITS::EBB_TOILET ? CMD::ToiletLightOff : CMD::ToiletLightOn );
-	echo "</tr><tr>";
+	echo "</td></tr><tr><td>";
 		ShowButtonMobile( "Коридор", $g_nStatus & EBUTTONBITS::EBB_CORRIDOR, $g_nStatus & EBUTTONBITS::EBB_CORRIDOR ? CMD::CorridorLightOff : CMD::CorridorLightOn );
 		ShowButtonMobile( "Зал", 	$g_nStatus & EBUTTONBITS::EBB_HALL, $g_nStatus & EBUTTONBITS::EBB_HALL ? CMD::HallLightOff : CMD::HallLightOn );
-		ShowButtonMobile( "Лампа", 	$g_nStatus & EBUTTONBITS::EBB_LAMP, $g_nStatus & EBUTTONBITS::EBB_LAMP ? CMD::NightLightOff : CMD::NightLightOn);
-	echo "</tr></table>";	
+		
+	echo "</td></tr></table>";	
 }
 ?>

@@ -1,7 +1,7 @@
 <?
 ## Socket Class by starand 18.08.2013
 class CSocket
-{	
+{
 	function __construct() 
 	{
 		if( !($this->socket_handler = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) )
@@ -9,7 +9,7 @@ class CSocket
 			echo( "Unable to create socket" );
 		}
 	}
-	
+
 	public function Connect( $port, $address = "127.0.0.1" )
 	{
 		if( !@socket_connect($this->socket_handler, $address, $port) )
@@ -43,5 +43,25 @@ class CSocket
 	
 	private $socket_handler;
 };
+
+function makeRequest($request, &$response)
+{
+	do
+	{
+		$clientSock = new CSocket();
+		if( !$clientSock->Connect(7300) ) break;
+
+		# perform authorization
+		global $password;
+		if( !$clientSock->Send($password) ) break;
+		if( !$clientSock->Recv($status, $bytes) ) break;
+
+		//echo $request;
+		if( !$clientSock->Send($request) ) break;
+		if( !$clientSock->Recv($response, $bytes) ) break;
+		//echo $response;
+	}
+	while(false);
+}
 
 ?>

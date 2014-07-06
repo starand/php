@@ -10,7 +10,9 @@
 	{
 		$g_nStatus = ExecuteCommand( $command );
 		if( !GetIsMobile() )
-			ShowButtonsDefault( $g_nStatus );
+		{
+			ShowButtonsDefault($g_nStatus);	
+		}
 		else 
 			ShowButtonsMobile( $g_nStatus );
 	}
@@ -30,5 +32,7 @@ $(document).ready(function()
 })
 
 setTimeout( 'refresh();', 1000 );
-function refresh() { $('#buttonsContainer').load( 'lightControl.php' ); }
+function refresh() {
+	$('#buttonsContainer').load( 'lightControl.php' );
+}
 </script>

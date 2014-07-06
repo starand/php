@@ -36,4 +36,5 @@
 		const HALL 		= 4;
 		const LAMP		= 5;
 	};
+
 ?>
