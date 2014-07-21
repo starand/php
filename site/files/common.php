@@ -37,7 +37,7 @@ if ( !my_session_start() ) {
 	$_USER = CheckUser();
 	
 ## hightling code for languages:
-	$langs = Array('asm', 'bash','cpp','delphi','perl','php','python','sql','vb','xml');
+	$langs = Array('Asm', 'Bash','Cpp','Delphi','Perl','Php','Python','Sql','Vb','Xml');
 	
 	
 //********** DEBUG FUNCTION **********	
