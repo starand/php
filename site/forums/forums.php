@@ -341,7 +341,7 @@ function ShowButtons()
 
 	echo "<br><input type=button class='btnbbcode' value=' Console ' onclick=\"surroundText('[console]', '[/console]')\" onmouseover=\"helpline('con')\" onmouseout=\"helpline('tip')\"";
 	echo "><input type=button class='btnbbcode' value=' Code ' onclick=\"surroundText('[c]', '[/c]')\" onmouseover=\"helpline('c')\" onmouseout=\"helpline('tip')\">";
-	foreach($langs as $l) echo "<input type=button class='btnbbcode' value=' $l ' onclick=\"surroundText('[$l]', '[/$l]')\" onmouseover=\"helpline('$l')\" onmouseout=\"helpline('tip')\">";
+	foreach($langs as $l) echo "<input type=button class='btnbbcode' value=' $l ' onclick=\"surroundText('[".strtolower($l)."]', '[/".strtolower($l)."]')\" onmouseover=\"helpline('$l')\" onmouseout=\"helpline('tip')\">";
 }
 
 function ShowLogMsg($msg)
