@@ -10,13 +10,15 @@
 	
 	
 	if(isset($_GET['msg'])) echo "<h1>".$_GET['msg']."</h1>";
-	
+
+	$style = 0;
 	if(isset($_GET['mPmsg']) && $_GET['mPmsg'] != 0)
 	{
 		$pMsg = (int)$_GET['mPmsg'];
 		$pm = GetMsg($pMsg);
 		if(!$pm) die('Invalid parent');
 		$fId=$_SESSION['fId'] = $pm['mFid'];
+		$style = $pm['mStyle'];
 		$_SESSION['pMsg'] = $pMsg;
 	}
 	else $pMsg = 0;
@@ -47,7 +49,7 @@
 		}
 		else
 		{
-			AddMsg($user['uId'],$fId,$pMsg,($pMsg) ? "": $mTheme,$msg,$REMOTE_ADDR, $mMsg, $level);
+			AddMsg($user['uId'],$fId,$pMsg,($pMsg) ? "": $mTheme,$msg,$REMOTE_ADDR, $mMsg, $level, $style);
 			$lm = GetLastMsg(); 	$lmid = $lm['mId'];		$lpid = $lm['mPmsg'];
 			if($lpid == 0) $lpid = $lmid;
 			AddLogMsg($user['uId'], "11|$lmid",3);

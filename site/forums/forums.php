@@ -27,12 +27,12 @@ function GetFMsgCount($fId)
 	return 0;
 
 }
-function AddMsg($mUid,$mFid,$mPmsg,$mTheme,$mMsg,$mIp,$mOrigMsg="", $level=0)
+function AddMsg($mUid,$mFid,$mPmsg,$mTheme,$mMsg,$mIp,$mOrigMsg="", $level=0, $style=0)
 {
 	$mtype=0;
 	if($mFid == 61) $mtype = 127;
 	if($pmsg = GetMsg($mPmsg))	$mtype = $pmsg['mType'];
-	$query = "insert into msgs (mUid,mDate,mFid,mPmsg,mTheme,mMsg,mIp,mOrigMsg,mType,mLevel) values($mUid,now(),$mFid,$mPmsg,'$mTheme','$mMsg','$mIp','$mOrigMsg',$mtype,$level)";
+	$query = "insert into msgs (mUid,mDate,mFid,mPmsg,mTheme,mMsg,mIp,mOrigMsg,mType,mLevel, mStyle) values($mUid,now(),$mFid,$mPmsg,'$mTheme','$mMsg','$mIp','$mOrigMsg',$mtype,$level, $style)";
 	uquery($query);
 }
 function DelMsg($mid, $uid)
