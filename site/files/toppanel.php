@@ -23,6 +23,7 @@
 	if($user['uNick'] === "StarAnd")
 	{
 		echo "<tr><td class='msglist' style='text-align:right;color:red;'> | ";
+		echo "<a class='ttl' href='../files/main.php?script=sources' title=''> src </a> | ";
 		echo "<a class='ttl' href='../files/main.php?script=log' title=''> Ћог </a> | ";
         if ($_CONFIG['showSmartHouse'])
             echo "<a class='ttl' href='http://safetylab.zapto.org/plugins/smh/' title='Smart House' target='_blank'> House </a> | ";

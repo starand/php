@@ -250,6 +250,14 @@ a.ttl:link { color:#c8c8c8; cursor: pointer; text-decoration:none; }
 a.ttl:visited { color:#c8c8c8; cursor: pointer; text-decoration:none; }
 a.ttl:hover { color:#c8c8c8; cursor: pointer; text-decoration:none; }
 
+a.file:link { color:#0080BF; cursor: pointer; text-decoration:none; }
+a.file:visited { color:#0080BF; cursor: pointer; text-decoration:none; }
+a.file:hover { color:#0080BF; cursor: pointer; text-decoration:none; }
+
+a.dir:link { color:#00FF00; cursor: pointer; text-decoration:none; }
+a.dir:visited { color:#00FF00; cursor: pointer; text-decoration:none; }
+a.dir:hover { color:#00FF00; cursor: pointer; text-decoration:none; }
+
 table.frmlist
 {
 	text-align:left;
