@@ -204,7 +204,7 @@ function SetHTag($text)
 function videoCallBack($p) 
 {
 	$url = $p[1];
-	return '<iframe width="840" height="630" src="'.$url.'" frameborder="0" allowfullscreen></iframe>';
+	return '<iframe width="1040" height="620" src="'.$url.'" frameborder="0" allowfullscreen></iframe>';
 	//return "<a onClick=\"javascript:ShowVideo(\'$url\');\" target=_blank style=\'color:yellow;\'>Watch</a>";
 	//return '<object style="height: 688px; width: 850px"><param name="movie" value="'.$url.'"><param name="allowFullScreen" value="true"><param name="allowScriptAccess" value="always"><embed src="'.$url.'" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="850" height="688"></object>';
 	//return '<embed src="'.$url.'" type="application/x-shockwave-flash" allowfullscreen="true" allowScriptAccess="always" width="850" height="688">';
