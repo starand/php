@@ -358,7 +358,7 @@ function ShowNoteMsg($msg, $i=0)
 	echo "<tr style='background:#".($i%2 ? "282828" : "333333")."' id='t{$msg['mId']}'>";
 	echo "<td colspan='2' class='padding'><a name='id{$msg['mId']}'><div style='font-size:9px;text-align:right;'>";
 	echo "<a href='../forums/addflink.php?link={$msg['mId']}' target='actions' style='color:orange;text-decoration:none;' title='Add to fast panel'>+</a> &nbsp;";
-	echo "<span style='color:grey;'>".sGetFDate($msg['mDate'])."</span> ";
+	echo "<span style='color:grey;'>".sGetFDateWithYear($msg['mDate'])."</span> ";
 	echo "<span style='font-weight:bold;color:magenta;'>{$msg['uNick']}</span>: &nbsp; ";
 	if($msg['mUid']==$usr['uId'] || $usr['uId']==1) 
 	{

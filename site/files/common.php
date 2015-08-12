@@ -159,6 +159,12 @@ function sGetFDate($date)
 	$res = substr($date,11,5)." ".substr($date,5,2).".".substr($date,8,2);
 	return $res;
 }
+## function conver MySQL formated date to user format
+function sGetFDateWithYear($date) 
+{
+	$res = substr($date,11,5)." ".substr($date,5,2).".".substr($date,8,2).".".substr($date,0,4);
+	return $res;
+}
 ## delete begin & end quotes
 function DelQuotes(&$str)
 {
