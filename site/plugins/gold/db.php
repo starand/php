@@ -54,7 +54,7 @@ function get_tasks()
 {
     $query = "SELECT * FROM tasks";
 	$res = uquery($query);
-	for($result=array(); $row=mysql_fetch_array($res); $result[]=$row);
+	for($result=array(); $row=mysql_fetch_array($res); $result[$row['t_id']]=$row);
 	return $result;
 }
 
@@ -83,7 +83,15 @@ function add_task($name, $desc)
 
 function get_efforts()
 {
-    $query = "SELECT e_task_id, sum(e_spent_time_m) FROM efforts GROUP by e_task_id";
+    $query = "SELECT e_task_id, count(e_spent_time_m) FROM efforts GROUP by e_task_id";
+    $res = uquery($query);
+	for($result=array(); $row=mysql_fetch_array($res); $result[$row['e_task_id']]=$row);
+	return $result;
+}
+
+function get_lastest_efforts($count = 20)
+{
+    $query = "SELECT * FROM efforts ORDER BY e_id DESC LIMIT $count";
     $res = uquery($query);
 	for($result=array(); $row=mysql_fetch_array($res); $result[$row['e_task_id']]=$row);
 	return $result;

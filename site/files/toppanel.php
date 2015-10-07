@@ -23,6 +23,8 @@
 	if($user['uNick'] === "StarAnd")
 	{
 		echo "<tr><td class='msglist' style='text-align:right;color:red;'> | ";
+        
+        echo "<a class='ttl' href='/plugins/gold/' title='GOLD' target='_blank'> gold </a> | ";
 		echo "<a class='ttl' href='../files/main.php?script=sources' title=''> src </a> | ";
 		echo "<a class='ttl' href='../files/main.php?script=log' title=''> Ћог </a> | ";
         if ($_CONFIG['showSmartHouse'])

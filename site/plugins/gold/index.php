@@ -1,5 +1,7 @@
 <HEAD><LINK href='/themes/green/main.css' rel=stylesheet type=text/css>
 <meta http-equiv='Content-Type' content='text/html; charset=windows-1251'></HEAD>
+<table>
+<tr><td style='border: 1px solid blue;'>
 <?
     include_once "db.php";
     
@@ -25,3 +27,29 @@
     }
     echo "</table>";
 ?>
+</td><td>  </td><td style='vertical-align:middle;text-align:center;'>
+
+<h1>GOLD</h1>
+<table cellspacing=5 cellpadding=10>
+    <tr><td style='border: 1px solid blue;'><h2>Add Effort</h2><? include_once "add_effort_dlg.php"; ?></td></tr>
+    <tr><td style='border: 1px solid blue;'><h2>Add Task</h2><? include_once "add_task_dlg.php"; ?></td></tr>
+    <tr><td style='border: 1px solid blue;'><h2>Add Goal</h2><? include_once "add_goal_dlg.php"; ?></td></tr>
+</table>
+
+</td><td> 
+
+<table style='border: 1px solid blue;'>
+<?
+    $tasks = get_tasks();
+    $last_efforts = get_lastest_efforts();
+    
+    foreach( $last_efforts as $effort )
+    {
+        echo "<tr><td>[{$effort['e_time']}] </td><td style='color:magenta;'> {$tasks[$effort['e_task_id']]['t_name']} </td>";
+        echo "<td> {$effort['e_spent_time_m']} </td><td style='color:white;'> {$effort['e_comment']} </td></tr>";
+    }
+?>
+</table>
+
+</td></tr>
+</table>
