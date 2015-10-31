@@ -30,7 +30,7 @@ function get_prev_month_url($months)
 	
 	if ( $months >= $month ) // calculate month and year
 	{
-		$month = 13 - months;
+		$month = 12 - ($months - $month);
 		$year -= 1;
 	}
 	else
