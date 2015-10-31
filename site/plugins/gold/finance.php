@@ -28,7 +28,7 @@ function get_prev_month_url($months)
 	$month = (int)date('m');
 	$year = (int)date('Y');
 	
-	if ( $months >= $month )
+	if ( $months >= $month ) // calculate month and year
 	{
 		$month = 13 - months;
 		$year -= 1;
@@ -37,6 +37,8 @@ function get_prev_month_url($months)
 	{
 		$month -= $months;
 	}
+
+	if ($month < 10) $month = "0".$month; // correct month representation
 
 	$time = "$month.$year";
 	$time_url = str_replace(".", "&year=", $time);
@@ -74,7 +76,7 @@ function get_prev_month_url($months)
 					<td>
 						<?
 							$income_total = get_incomes_sum($month, $year, $category);
-							echo "<h2>Incomes</h2>Total: $income_total";
+							echo "<h2>Incomes</h2>Total: ".(int)$income_total;
 							$cats = get_income_categories();
 							$incomes = get_incomes_per_month($month, $year, $category);
 							
@@ -105,7 +107,7 @@ function get_prev_month_url($months)
 		<td rowspan='3' style='border: 1px solid blue;'>
 			<?
 				$cost_total = get_costs_sum($month, $year, $category);
-				echo "<h2>Costs</h2>Total: $cost_total, Net profit: ".($income_total - $cost_total);
+				echo "<h2>Costs</h2>Total: ".(int)$cost_total.", Net profit: ".($income_total - $cost_total);
 			?>
 			<table cellspacing='0' cellpadding='0'><tr><td>
 			<?
