@@ -43,8 +43,8 @@ function get_goals()
 
 function add_goal($name, $desc)
 {
-    $sql = "INSERT INTO goals VALUES( NULL, '$name', '$desc' )";
-    return uquery($sql);
+    $query = "INSERT INTO goals VALUES( NULL, '$name', '$desc' )";
+    return uquery($query);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -74,8 +74,8 @@ function get_task($id)
 
 function add_task($name, $desc)
 {
-    $sql = "INSERT INTO tasks VALUES( NULL, '$name', '$desc' )";
-    return uquery($sql);
+    $query = "INSERT INTO tasks VALUES( NULL, '$name', '$desc' )";
+    return uquery($query);
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -91,9 +91,9 @@ function get_efforts()
 
 function get_lastest_efforts($count = 20)
 {
-    $query = "SELECT * FROM efforts ORDER BY e_id DESC LIMIT $count";
+    $query = "SELECT * FROM efforts ORDER BY e_time DESC LIMIT $count";
     $res = uquery($query);
-	for($result=array(); $row=mysql_fetch_array($res); $result[$row['e_task_id']]=$row);
+	for($result=array(); $row=mysql_fetch_array($res); $result[$row['e_id']]=$row);
 	return $result;
 }
 
@@ -104,11 +104,127 @@ function add_effort($tid, $time, $comment)
 }
 
 //-------------------------------------------------------------------------------------------------
-// relations
+// COST CATEGORIES
 
+function add_cost_category($name)
+{
+    $query = "INSERT INTO cost_cats VALUES(NULL, '$name')";
+    return uquery($query);
+}
 
+function get_cost_categories()
+{
+    $query = "SELECT * FROM cost_cats";
+    $res = uquery($query);
+	for($result=array(); $row=mysql_fetch_array($res); $result[$row['cc_id']]=$row);
+	return $result;
+}
 
+//-------------------------------------------------------------------------------------------------
+// COSTS
 
+function add_cost($cat, $val, $desc, $type=0, $time) // types: 0 - not val, 1 - val, 2 - debt
+{
+    $query = "INSERT INTO costs VALUES(NULL, $cat, '$time', $val, '$desc', $type)";
+    return uquery($query);
+}
+
+function get_costs($limit = 30)
+{
+    $query = "SELECT * FROM costs ORDER BY c_id DESC LIMIT $limit";
+    $res = uquery($query);
+	for($result=array(); $row=mysql_fetch_array($res); $result[]=$row);
+	return $result;
+}
+
+function get_costs_per_month($month, $year = 2015, $cat = 0)
+{
+	$time = "$year-$month-01";
+	$cat_expr = $cat == 0 ? "" : " AND c_cat = $cat";
+	$query = "SELECT * FROM costs ".
+			 "WHERE UNIX_TIMESTAMP(c_time) >= UNIX_TIMESTAMP(LAST_DAY('$time') + INTERVAL 1 DAY - INTERVAL 1 MONTH) ".
+				"AND UNIX_TIMESTAMP(c_time) < UNIX_TIMESTAMP(LAST_DAY('$time') + INTERVAL 1 DAY) ".
+				"$cat_expr";
+    $res = uquery($query);
+	for($result=array(); $row=mysql_fetch_array($res); $result[]=$row);
+	return $result;
+}
+
+function get_costs_sum($month, $year = 2015, $cat = 0)
+{
+	$time = "$year-$month-01";
+	$cat_expr = $cat == 0 ? "" : " AND c_cat = $cat";
+	$query = "SELECT sum(c_value) FROM costs ".
+			 "WHERE UNIX_TIMESTAMP(c_time) >= UNIX_TIMESTAMP(LAST_DAY('$time') + INTERVAL 1 DAY - INTERVAL 1 MONTH) ".
+				"AND UNIX_TIMESTAMP(c_time) < UNIX_TIMESTAMP(LAST_DAY('$time') + INTERVAL 1 DAY) ".
+				"$cat_expr";
+	$res = uquery($query);
+	if ( $res && mysql_num_rows($res) ) return mysql_result($res, 0, 0);
+	return 0;
+}
+
+//-------------------------------------------------------------------------------------------------
+// INCOME CTEGORIES
+
+function add_income_category($name)
+{
+    $query = "INSERT INTO income_cats VALUES(NULL, '$name')";
+    return uquery($query);
+}
+
+function get_income_categories()
+{
+    $query = "SELECT * FROM  income_cats";
+    $res = uquery($query);
+	for($result=array(); $row=mysql_fetch_array($res); $result[$row['ic_id']]=$row);
+	return $result;
+}
+
+//-------------------------------------------------------------------------------------------------
+// INCOMES
+
+function add_income($cat, $val, $time)
+{
+    $query = "INSERT INTO incomes VALUES(NULL, $cat, '$time', $val)";
+    return uquery($query);
+}
+
+function get_incomes()
+{
+    $query = "SELECT * FROM incomes";
+    $res = uquery($query);
+	for($result=array(); $row=mysql_fetch_array($res); $result[]=$row);
+	return $result;
+}
+
+function get_incomes_per_month($month, $year = 2015, $cat = 0)
+{
+	$time = "$year-$month-01";
+	$cat_expr = $cat == 0 ? "" : " AND i_cat = $cat";
+    $query = "SELECT * FROM incomes ".
+			"WHERE UNIX_TIMESTAMP(i_time) >= UNIX_TIMESTAMP(LAST_DAY('$time') + INTERVAL 1 DAY - INTERVAL 1 MONTH) ".
+			"AND UNIX_TIMESTAMP(i_time) < UNIX_TIMESTAMP(LAST_DAY('$time') + INTERVAL 1 DAY) ".
+			"$cat_expr";
+			
+    $res = uquery($query);
+	for($result=array(); $row=mysql_fetch_array($res); $result[]=$row);
+	return $result;
+}
+
+function get_incomes_sum($month, $year = 2015, $cat = 0)
+{
+	$time = "$year-$month-01";
+	$cat_expr = $cat == 0 ? "" : " AND i_cat = $cat";
+	$query = "SELECT sum(i_value) FROM incomes ".
+			 "WHERE UNIX_TIMESTAMP(i_time) >= UNIX_TIMESTAMP(LAST_DAY('$time') + INTERVAL 1 DAY - INTERVAL 1 MONTH) ".
+				"AND UNIX_TIMESTAMP(i_time) < UNIX_TIMESTAMP(LAST_DAY('$time') + INTERVAL 1 DAY) ".
+				"$cat_expr";
+	$res = uquery($query);
+	if ( $res && mysql_num_rows($res) ) return mysql_result($res, 0, 0);
+	return 0;
+}
+
+//-------------------------------------------------------------------------------------------------
 
 } // multiply use
 ?>
