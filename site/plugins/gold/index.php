@@ -2,7 +2,7 @@
 <HEAD><LINK href='/themes/green/main.css' rel=stylesheet type=text/css>
 <meta http-equiv='Content-Type' content='text/html; charset=windows-1251'></HEAD>
 
-<a style='font-size:20px;' href='index.php?page=finance'> FINANCE </a> | <a style='font-size:20px;' href='index.php?page=goals'> GOALS </a><BR>
+<a style='font-size:20px;' href='index.php?page=finance'> FINANCE </a> &nbsp; <a style='font-size:20px;' href='index.php?page=goals'> GOALS </a><BR>
 
 <?
     

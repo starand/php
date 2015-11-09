@@ -163,6 +163,18 @@ function get_costs_sum($month, $year = 2015, $cat = 0)
 	return 0;
 }
 
+function get_costs_by_cats($month, $year = 2015)
+{
+	$time = "$year-$month-01";
+	$query = "SELECT sum(c_value)as sum, c_cat FROM costs ".
+			 "WHERE UNIX_TIMESTAMP(c_time) >= UNIX_TIMESTAMP(LAST_DAY('$time') + INTERVAL 1 DAY - INTERVAL 1 MONTH) ".
+				"AND UNIX_TIMESTAMP(c_time) < UNIX_TIMESTAMP(LAST_DAY('$time') + INTERVAL 1 DAY) ".
+				"GROUP BY c_cat";
+    $res = uquery($query);
+	for($result=array(); $row=mysql_fetch_array($res); $result[$row['c_cat']]=$row['sum']);
+	return $result;
+}
+
 //-------------------------------------------------------------------------------------------------
 // INCOME CTEGORIES
 
@@ -225,6 +237,22 @@ function get_incomes_sum($month, $year = 2015, $cat = 0)
 }
 
 //-------------------------------------------------------------------------------------------------
+// CONSTS
+
+function add_const( $name, $val )
+{
+	$query = "INSERT INTO consts VALUES('$name', '$val')";
+	return uquery( $query );
+}
+
+function get_consts( )
+{
+	$query = "SELECT * FROM consts";
+	$res = uquery($query);
+	for($result=array(); $row=mysql_fetch_array($res); $result[$row['cn_name']]=$row['cn_value']);
+	return $result;
+}
+
 
 } // multiply use
 ?>

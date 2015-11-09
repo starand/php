@@ -46,19 +46,38 @@ function get_prev_month_url($months)
 	return "<a href='?month=$time_url'>$time</a>";
 }
 
+	include_once "db.php";
+	$consts = get_consts( );
+
+function get_planned_costs( $id )
+{
+	global $consts;
+
+	switch ( $id )
+	{
+		case 1: return $consts["MAX_COSTS_FOOD"];
+		case 2: return $consts["MAX_COSTS_ETC"];
+		case 3: return $consts["MAX_COSTS_CHILDREN"];
+		case 4: return $consts["MAX_COSTS_WIFE"];
+		case 5: return $consts["MAX_COSTS_ME"];
+		case 6: return $consts["MAX_COSTS_CAR"];
+		case 7: return $consts["MAX_COSTS_PERCENTAGE"];
+	}
+
+	return "error";
+}
+
 #################################################################
 ## Global Vars
 
 	$month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
 	$year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 	$category = isset($_GET['cat']) ? (int)$_GET['cat'] : 0;
-	
-	include_once "db.php";
 ?>
 
 <h1>Finance</h1>
 <?
-	echo get_prev_month_url(0)." | ".get_prev_month_url(1)." | ".get_prev_month_url(2);
+	echo get_prev_month_url(0)." | ".get_prev_month_url(1)." | ".get_prev_month_url(2)." | ".get_prev_month_url(3);
 ?>
 <table>
 	<tr>
@@ -76,7 +95,7 @@ function get_prev_month_url($months)
 					<td>
 						<?
 							$income_total = get_incomes_sum($month, $year, $category);
-							echo "<h2>Incomes</h2>Total: ".(int)$income_total;
+							echo "<h2>Incomes</h2>Total: ".(float)$income_total;
 							$cats = get_income_categories();
 							$incomes = get_incomes_per_month($month, $year, $category);
 							
@@ -95,11 +114,14 @@ function get_prev_month_url($months)
 								echo "</tr>";
 							}
 							echo "</table>";
-						?>
 							
-							<tr><td>
-							</td></tr>
-						
+							echo "Category: <select name='i_cat' onSelect='alert(1);'>";
+							foreach( $cats as $cat)
+							{
+								echo "<option value='{$cat[ic_id]}'>{$cat[ic_name]}</option>";
+							}
+							echo "</select>";
+						?>
 					</td>
 				</tr>
 			</table>
@@ -107,7 +129,9 @@ function get_prev_month_url($months)
 		<td rowspan='3' style='border: 1px solid blue;'>
 			<?
 				$cost_total = get_costs_sum($month, $year, $category);
-				echo "<h2>Costs</h2>Total: ".(int)$cost_total.", Net profit: ".($income_total - $cost_total);
+				$days = date('j');
+				echo "<h2>Costs</h2>Total: ".(float)$cost_total.", Net profit: ".($income_total - $cost_total);
+				echo "<br>Per day: ".round($cost_total/$days);
 			?>
 			<table cellspacing='0' cellpadding='0'><tr><td>
 			<?
@@ -134,6 +158,23 @@ function get_prev_month_url($months)
 					{
 						echo "</table></td><td> &nbsp; </td><td><table cellspacing='0' cellpadding='0'>";
 					}
+				}
+				echo "</table>";
+
+				$cat_sums = get_costs_by_cats($month, $year);
+				$progress = (int)date("j") / (int)date("t") * 100;
+				echo "<BR>By categories: <table cellspacing='0' cellpadding='0'>";
+				foreach( $cat_sums as $id => $sum )
+				{
+					$cat_name = $cats[$id]["cc_name"];
+					$planned = get_planned_costs($id);
+					$curr_progress = $sum / $planned * 100;
+					echo "<tr>".
+							"<td style='border: 1px solid blue;'>$cat_name </td>".
+							"<td style='border: 1px solid blue;'> $sum</td>".
+							"<td style='border: 1px solid blue; color: ".($curr_progress > $progress ? "red" : "white")."' title='$planned'>".
+							"&nbsp; $curr_progress % &nbsp; </td>".
+						 "</tr>";
 				}
 				echo "</table>";
 			?>	
