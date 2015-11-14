@@ -1,4 +1,7 @@
-<? session_start(); ?>
+<? 
+	session_start(); 
+	if ( $_SESSION["n_user"]["uNick"] != "StarAnd" ) die();
+?>
 <HEAD><LINK href='/themes/green/main.css' rel=stylesheet type=text/css>
 <meta http-equiv='Content-Type' content='text/html; charset=windows-1251'></HEAD>
 

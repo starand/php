@@ -1,4 +1,6 @@
 <?
+	if ( $_SESSION["n_user"]["uNick"] != "StarAnd" ) die();
+	
     if( isset($_POST['ic_name']) )
     {
         if ( empty($_POST['ic_name']) )

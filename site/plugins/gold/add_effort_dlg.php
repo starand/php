@@ -1,4 +1,6 @@
 <?
+	if ( $_SESSION["n_user"]["uNick"] != "StarAnd" ) die();
+	
     include_once "db.php";
 
     if( isset($_POST['task_id']) && isset($_POST['spent_time']) && isset($_POST['comment']) )

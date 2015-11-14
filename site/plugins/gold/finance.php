@@ -1,3 +1,4 @@
+<? if ( $_SESSION["n_user"]["uNick"] != "StarAnd" ) die(); ?>
 <HEAD><LINK href='/themes/green/main.css' rel=stylesheet type=text/css>
 <meta http-equiv='Content-Type' content='text/html; charset=windows-1251'></HEAD>
 
@@ -13,6 +14,16 @@ function cat_color($id)
 		case 5: return "#0B0B61";
 		case 6: return "#B40404";
 		case 7: return "#868A08";
+	}
+}
+
+function cost_color( $type )
+{
+	switch ( $type )
+	{
+	case 0: return "#000000";
+	case 1: return "blue";
+	case 2: return "green";
 	}
 }
 
@@ -144,9 +155,10 @@ function get_planned_costs( $id )
 				{
 					++$counter;
 					$cat_id = $cost['c_cat'];
+					$type = $cost['c_type'];
 					$time = prepare_time( $cost['c_time'] );
 					$cat_name = $cats[$cat_id]["cc_name"];
-					echo "<tr style='background-color:".cat_color($cat_id).";' title='{$cost['c_id']}'>";
+					echo "<tr style='background-color:".cost_color($type).";' title='{$cost['c_id']}'>";
 					echo "<td style='border: 1px solid blue;'> $time </td>";
 					echo "<td style='border: 1px solid blue;'> $cat_name </td>";
 					echo "<td style='border: 1px solid blue;'> {$cost['c_value']} </td>";
@@ -162,13 +174,13 @@ function get_planned_costs( $id )
 				echo "</table>";
 
 				$cat_sums = get_costs_by_cats($month, $year);
-				$progress = (int)date("j") / (int)date("t") * 100;
-				echo "<BR>By categories: <table cellspacing='0' cellpadding='0'>";
+				$progress = round( (int)date("j") / (int)date("t") * 100, 2 );
+				echo "<BR>By categories ( $progress % ): <table cellspacing='0' cellpadding='0'>";
 				foreach( $cat_sums as $id => $sum )
 				{
 					$cat_name = $cats[$id]["cc_name"];
 					$planned = get_planned_costs($id);
-					$curr_progress = $sum / $planned * 100;
+					$curr_progress = round( $sum / $planned * 100, 2);
 					echo "<tr>".
 							"<td style='border: 1px solid blue;'>$cat_name </td>".
 							"<td style='border: 1px solid blue;'> $sum</td>".
