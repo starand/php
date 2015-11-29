@@ -13,9 +13,13 @@ if(!defined("__DB__")) {
 	$mysql_pswd = "hacker";
 
     # connecting
-	@mysql_pconnect(db_host,mysql_user,mysql_pswd) or die("Can not connect to database!!"); 
+	$conn = @mysql_pconnect(db_host,mysql_user,mysql_pswd) or die("Can not connect to database!!"); 
 	mysql_select_db(db_name) or die("Can not select database!!");
 
+	// set UTF8 as default connection
+	mysql_query("SET character_set_results = 'utf8', character_set_client = 'utf8', character_set_connection = 'utf8', character_set_database = 'utf8', character_set_server = 'utf8'", $conn);
+	//$re = mysql_query('SHOW VARIABLES LIKE "%character_set%";')or die(mysql_error());
+	//while ($r = mysql_fetch_assoc($re)) {var_dump ($r); echo "<br />";} exit;
 
 ## send query to db	
 function uquery($query) 

@@ -22,7 +22,7 @@
 Cat: <select name='c_cat'>
 <?
     $cats = get_cost_categories();
-    foreach( $cats as $cat)
+    foreach( $cats as $cat )
     {
         echo "<option value='{$cat[cc_id]}'>{$cat[cc_name]}</option>";
     }

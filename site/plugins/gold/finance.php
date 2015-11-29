@@ -73,6 +73,7 @@ function get_planned_costs( $id )
 		case 5: return $consts["MAX_COSTS_ME"];
 		case 6: return $consts["MAX_COSTS_CAR"];
 		case 7: return $consts["MAX_COSTS_PERCENTAGE"];
+		case 8: return $consts["MAX_COMMUNAL"];
 	}
 
 	return "error";
