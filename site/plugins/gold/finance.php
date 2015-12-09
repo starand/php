@@ -1,7 +1,6 @@
 <? if ( $_SESSION["n_user"]["uNick"] != "StarAnd" ) die(); ?>
 <HEAD><LINK href='/themes/green/main.css' rel=stylesheet type=text/css>
-<meta http-equiv='Content-Type' content='text/html; charset=windows-1251'></HEAD>
-
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8'></HEAD>
 <?
 function cat_color($id)
 {

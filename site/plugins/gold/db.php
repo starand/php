@@ -257,6 +257,5 @@ function get_consts( )
 	return $result;
 }
 
-
 } // multiply use
 ?>
