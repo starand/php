@@ -84,6 +84,17 @@ function get_planned_costs( $id )
 	$month = isset($_GET['month']) ? (int)$_GET['month'] : date('m');
 	$year = isset($_GET['year']) ? (int)$_GET['year'] : date('Y');
 	$category = isset($_GET['cat']) ? (int)$_GET['cat'] : 0;
+
+#################################################################
+
+function cat_link($name, $id)
+{
+	global $month;
+	global $year;
+
+	$style = "text-decoration:none;";
+	return "<a style='$style' href='?cat=$id&month=$month&year=$year'>{$name}</a>";
+}
 ?>
 
 <h1>Finance</h1>
@@ -160,7 +171,7 @@ function get_planned_costs( $id )
 					$cat_name = $cats[$cat_id]["cc_name"];
 					echo "<tr style='background-color:".cost_color($type).";' title='{$cost['c_id']}'>";
 					echo "<td style='border: 1px solid blue;'> $time </td>";
-					echo "<td style='border: 1px solid blue;'> $cat_name </td>";
+					echo "<td style='border: 1px solid blue;'> ".cat_link($cat_name, $cat_id)." </td>";
 					echo "<td style='border: 1px solid blue;'> {$cost['c_value']} </td>";
 					echo "<td style='border: 1px solid blue;'> {$cost['c_desc']} </td>";
 					echo "<td></td><td></td>";
@@ -176,19 +187,24 @@ function get_planned_costs( $id )
 				$cat_sums = get_costs_by_cats($month, $year);
 				$progress = round( (int)date("j") / (int)date("t") * 100, 2 );
 				echo "<BR>By categories ( $progress % ): <table cellspacing='0' cellpadding='0'>";
+				$planned_total = 0;
 				foreach( $cat_sums as $id => $sum )
 				{
 					$cat_name = $cats[$id]["cc_name"];
+					$cat_id = $cats[$id]["cc_id"];
 					$planned = get_planned_costs($id);
+					$planned_total += $planned;
 					$curr_progress = round( $sum / $planned * 100, 2);
 					echo "<tr>".
-							"<td style='border: 1px solid blue;'>$cat_name </td>".
+							"<td style='border: 1px solid blue;'>".cat_link($cat_name, $cat_id)." </td>".
 							"<td style='border: 1px solid blue;'> $sum</td>".
 							"<td style='border: 1px solid blue; color: ".($curr_progress > $progress ? "red" : "white")."' title='$planned'>".
 							"&nbsp; $curr_progress % &nbsp; </td>".
 						 "</tr>";
 				}
-				echo "</table>";
+				echo "</table><BR>";
+				$planned_prec = round($cost_total / $planned_total * 100, 2);
+				echo "Total planned: $planned_total, <b style='color: ".($planned_prec > $progress ? "red" : "white")."'>$planned_prec</b> % used";
 			?>	
 			</td></tr></table>
 		</td>
