@@ -116,26 +116,47 @@ function cat_link($name, $id)
 				<tr>
 					<td>
 						<?
+							echo "<h2>Incomes</h2>";
 							$income_total = get_incomes_sum($month, $year, $category);
-							echo "<h2>Incomes</h2>Total: ".(float)$income_total;
 							$cats = get_income_categories();
 							$incomes = get_incomes_per_month($month, $year, $category);
 							
-							echo "<table cellspacing='0' cellpadding='0'>";
-							foreach($incomes as $income)
-							{
-								$cat_id = $income['i_cat'];
-								$time = prepare_time($income['i_time']);
-								$cat_name = $cats[$cat_id]["ic_name"];
-								
-								echo "<tr title='{$income['i_id']}'>";
-								echo "<td style='border: 1px solid blue;'> $time </td>";
-								echo "<td style='border: 1px solid blue;'> $cat_name </td>";
-								echo "<td style='border: 1px solid blue;'> {$income['i_value']} </td>";
-								echo "<td></td><td></td>";
-								echo "</tr>";
-							}
-							echo "</table>";
+                            echo "<table><tr><td>";
+                            
+                                echo "Total: <span style='color:#00FF00;'>".(float)$income_total."</span>";
+                                echo "<table cellspacing='0' cellpadding='0'>";
+                                foreach($incomes as $income)
+                                {
+                                    $cat_id = $income['i_cat'];
+                                    $time = prepare_time($income['i_time']);
+                                    $cat_name = $cats[$cat_id]["ic_name"];
+                                    
+                                    echo "<tr title='{$income['i_id']}'>";
+                                    echo "<td style='border: 1px solid blue;'> $time </td>";
+                                    echo "<td style='border: 1px solid blue;'> $cat_name </td>";
+                                    echo "<td style='border: 1px solid blue;'> {$income['i_value']} </td>";
+                                    echo "<td></td><td></td>";
+                                    echo "</tr>";
+                                }
+                                echo "</table>";
+                            
+                            echo "<td><td>";
+                            
+                                $cat_sums = get_incomes_by_cats($month, $year);
+                                echo "By categories:";
+                                echo "<table cellspacing='0' cellpadding='0'>";
+                                foreach( $cat_sums as $id => $sum )
+                                {
+                                    $cat_name = $cats[$id]["ic_name"];
+                                    $cat_id = $cats[$id]["ic_id"];
+                                    echo "<tr>".
+                                            "<td style='border: 1px solid blue;'>".cat_link($cat_name, $cat_id)." </td>".
+                                            "<td style='border: 1px solid blue;'> $sum</td>".
+                                         "</tr>";
+                                }
+                                echo "</table>";
+                            
+                            echo "<td></tr></table>";
 							
 							echo "Category: <select name='i_cat' onSelect='alert(1);'>";
 							foreach( $cats as $cat)
@@ -145,21 +166,47 @@ function cat_link($name, $id)
 							echo "</select>";
 						?>
 					</td>
+					<td>
+					<?
+						echo "<h2>Costs</h2>";
+						$cat_sums = get_costs_by_cats($month, $year);
+						$cost_total = get_costs_sum($month, $year, $category);
+						$cats = get_cost_categories();
+						$progress = round( (int)date("j") / (int)date("t") * 100, 2 );
+						echo "<BR>By categories ( $progress % ): <table cellspacing='0' cellpadding='0'>";
+						$planned_total = 0;
+						foreach( $cat_sums as $id => $sum )
+						{
+							$cat_name = $cats[$id]["cc_name"];
+							$cat_id = $cats[$id]["cc_id"];
+							$planned = get_planned_costs($id);
+							$planned_total += $planned;
+							$curr_progress = round( $sum / $planned * 100, 2);
+							echo "<tr>".
+									"<td style='border: 1px solid blue;'>".cat_link($cat_name, $cat_id)." </td>".
+									"<td style='border: 1px solid blue;'> $sum</td>".
+									"<td style='border: 1px solid blue; color: ".($curr_progress > $progress ? "red" : "white")."' title='$planned'>".
+									"&nbsp; $curr_progress % &nbsp; </td>".
+								 "</tr>";
+						}
+						echo "</table><BR>";
+						$planned_prec = round($cost_total / $planned_total * 100, 2);
+						echo "Total planned: $planned_total, <b style='color: ".($planned_prec > $progress ? "red" : "white")."'>$planned_prec</b> % used";
+					?>
+					</td>
 				</tr>
 			</table>
 		</td>
 		<td rowspan='3' style='border: 1px solid blue;'>
 			<?
-				$cost_total = get_costs_sum($month, $year, $category);
 				$days = date('j');
-				echo "<h2>Costs</h2>Total: ".(float)$cost_total.", Net profit: ".($income_total - $cost_total);
+				echo "<h2>Costs</h2>Total: <span style='color:red;'>".(float)$cost_total."</span>, Net profit: ".($income_total - $cost_total);
 				echo "<br>Per day: ".round($cost_total/$days);
 			?>
 			<table cellspacing='0' cellpadding='0'><tr><td>
 			<?
 				$costs = get_costs_per_month($month, $year, $category);
-				$cats = get_cost_categories();
-				
+
 				$counter = 0;
 				echo "<table cellspacing='0' cellpadding='0'>";
 				foreach($costs as $cost)
@@ -183,28 +230,6 @@ function cat_link($name, $id)
 					}
 				}
 				echo "</table>";
-
-				$cat_sums = get_costs_by_cats($month, $year);
-				$progress = round( (int)date("j") / (int)date("t") * 100, 2 );
-				echo "<BR>By categories ( $progress % ): <table cellspacing='0' cellpadding='0'>";
-				$planned_total = 0;
-				foreach( $cat_sums as $id => $sum )
-				{
-					$cat_name = $cats[$id]["cc_name"];
-					$cat_id = $cats[$id]["cc_id"];
-					$planned = get_planned_costs($id);
-					$planned_total += $planned;
-					$curr_progress = round( $sum / $planned * 100, 2);
-					echo "<tr>".
-							"<td style='border: 1px solid blue;'>".cat_link($cat_name, $cat_id)." </td>".
-							"<td style='border: 1px solid blue;'> $sum</td>".
-							"<td style='border: 1px solid blue; color: ".($curr_progress > $progress ? "red" : "white")."' title='$planned'>".
-							"&nbsp; $curr_progress % &nbsp; </td>".
-						 "</tr>";
-				}
-				echo "</table><BR>";
-				$planned_prec = round($cost_total / $planned_total * 100, 2);
-				echo "Total planned: $planned_total, <b style='color: ".($planned_prec > $progress ? "red" : "white")."'>$planned_prec</b> % used";
 			?>	
 			</td></tr></table>
 		</td>

@@ -240,6 +240,18 @@ function get_incomes_sum($month, $year = 2015, $cat = 0)
 	return 0;
 }
 
+function get_incomes_by_cats($month, $year = 2015)
+{
+	$time = "$year-$month-01";
+	$query = "SELECT sum(i_value) as sum, i_cat FROM incomes ".
+			 "WHERE UNIX_TIMESTAMP(i_time) >= UNIX_TIMESTAMP(LAST_DAY('$time') + INTERVAL 1 DAY - INTERVAL 1 MONTH) ".
+				"AND UNIX_TIMESTAMP(i_time) < UNIX_TIMESTAMP(LAST_DAY('$time') + INTERVAL 1 DAY) ".
+				"GROUP BY i_cat";
+    $res = uquery($query);
+	for($result=array(); $row=mysql_fetch_array($res); $result[$row['i_cat']]=$row['sum']);
+	return $result;
+}
+
 //-------------------------------------------------------------------------------------------------
 // CONSTS
 
