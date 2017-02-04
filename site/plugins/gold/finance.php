@@ -99,7 +99,8 @@ function cat_link($name, $id)
 
 <h1>Finance</h1>
 <?
-	echo get_prev_month_url(0)." | ".get_prev_month_url(1)." | ".get_prev_month_url(2)." | ".get_prev_month_url(3);
+	echo get_prev_month_url(0)." | ".get_prev_month_url(1)." | ".get_prev_month_url(2)." | ".get_prev_month_url(3). " | ".
+		get_prev_month_url(4)." | ".get_prev_month_url(5)." | ".get_prev_month_url(6)." | ".get_prev_month_url(7);
 ?>
 <table>
 	<tr>
